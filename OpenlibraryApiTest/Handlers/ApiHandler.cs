@@ -1,31 +1,24 @@
 ﻿using OpenlibraryApiTest.Objects;
 using RestSharp;
-using RestSharp.Authenticators;
 using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace OpenlibraryApiTest.Handlers
 {
     class ApiHandler
     {
-        const string BaseUrl = "https://api.twilio.com/2008-08-01";
+        string BaseUrl = ConfigurationReader.GetValue("url");
 
         readonly IRestClient _client;
 
-        string _accountSid;
-
-        public ApiHandler(string accountSid, string secretKey)
+        public ApiHandler()
         {
             _client = new RestClient(BaseUrl);
-            _client.Authenticator = new HttpBasicAuthenticator(accountSid, secretKey);
-            _accountSid = accountSid;
         }
 
         //Connection Handler
         public T Execute<T>(RestRequest request) where T : new()
         {
-            request.AddParameter("AccountSid", _accountSid, ParameterType.UrlSegment); // used on every request
             var response = _client.Execute<T>(request);
 
             if (response.ErrorException != null)
@@ -38,23 +31,29 @@ namespace OpenlibraryApiTest.Handlers
         }
 
         //Get
-        public Book GetBook(string callSid)
+        public Book GetBook(string isbn)
         {
-            var request = new RestRequest("Accounts/{AccountSid}/Calls/{CallSid}");
-            request.RootElement = "Call";
-
-            request.AddParameter("CallSid", callSid, ParameterType.UrlSegment);
-
-            return Execute<Book>(request);
+            var request = new RestRequest("api/books?bibkeys=ISBN:" + isbn + "&jscmd=data&format=json");
+            request.AddParameter("isbn", isbn, ParameterType.UrlSegment);
+            request.RootElement = "ISBN:" + isbn;
+            var response = Execute<Book>(request);
+            return response;
         }
 
         //Post
-        public Login Login()
+        public bool Login(string username, string password)
         {
-            var request = new RestRequest("Accounts/{AccountSid}/Calls", Method.POST);
-            //request.RootElement = "Calls";
-            request.AddJsonBody(new { username = "musicgds@gmail.com", password = "visma2020" });
-            return Execute<Login>(request);
+            var request = new RestRequest("account/login", Method.POST);
+            request.AddParameter("username", username);
+            request.AddParameter("password", password);
+            var response = _client.Execute(request);
+            return (response.Cookies.Count != 0);
         }
+
+        // Pasiaiaskinti koks skirtumas tarp tokio ir veikiancio varianto
+
+        //request.RequestFormat = DataFormat.Json;
+        //request.AddJsonBody(new { username = "Gediminas5629", password = "visma2020" });
     }
 }
+

@@ -6,5 +6,7 @@ namespace OpenlibraryApiTest.Objects
 {
     class Book
     {
+        public string Title { get; set; }
+        public string thumbnail_url { get; set; }
     }
 }

@@ -10,8 +10,11 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.7" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
     <PackageReference Include="RestSharp" Version="106.11.4" />
     <PackageReference Include="SpecFlow" Version="3.4.3" />
+    <PackageReference Include="SpecFlow.NUnit" Version="3.4.3" />
+    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.4.3" />
     
 
     
@@ -24,6 +27,12 @@
   <ItemGroup>
     <Folder Include="Drivers\" />
     <Folder Include="Hooks\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="specflow.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
