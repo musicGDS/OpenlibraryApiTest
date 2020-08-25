@@ -1,0 +1,14 @@
+﻿{
+    "bindingCulture":
+    {
+        "language" :"en-us"
+    },
+  "language": {
+    "feature": "en-us"
+  },
+  "config": {
+    "url": "https://openlibrary.org/",
+    "userEmail": "musicgds@gmail.com",
+    "password": "visma2020"
+  }
+}
