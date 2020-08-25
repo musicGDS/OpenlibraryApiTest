@@ -12,7 +12,6 @@ namespace OpenlibraryApiTest.Steps
         private ApiHandler _apiHandler = new ApiHandler();
         private string _userName;
         private string _password;
-        private Login _login;
         private bool _gotcookie;
 
         [Given(@"the username ""(.*)""")]
