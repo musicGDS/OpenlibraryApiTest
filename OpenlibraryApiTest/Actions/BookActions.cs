@@ -5,9 +5,9 @@ using System.Text;
 
 namespace OpenlibraryApiTest.Handlers
 {
-    static class BookHandler
+    static class BookActions
     {
-        public static string GetTitle(Book book)
+        public static string GetTitle(BookModel book)
         {
             return book.Title;
         }

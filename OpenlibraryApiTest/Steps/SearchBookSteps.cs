@@ -7,7 +7,7 @@ namespace OpenlibraryApiTest.Steps
     [Binding]
     public class SearchBookSteps
     {
-        private ApiHandler api = new ApiHandler();
+        private ApiActions api = new ApiActions();
         string _code;
         string _actualTitle;
 
@@ -20,7 +20,7 @@ namespace OpenlibraryApiTest.Steps
         [When(@"get the title")]
         public void WhenGetTheTitle()
         {
-            _actualTitle = BookHandler.GetTitle(api.GetBook(_code));
+            _actualTitle = BookActions.GetTitle(api.GetBook(_code));
         }
         
         [Then(@"the result should be ""(.*)""")]

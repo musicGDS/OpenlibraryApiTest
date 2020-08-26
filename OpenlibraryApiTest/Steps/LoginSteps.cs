@@ -9,7 +9,7 @@ namespace OpenlibraryApiTest.Steps
     [Binding]
     public class LoginSteps
     {
-        private ApiHandler _apiHandler = new ApiHandler();
+        private ApiActions _apiHandler = new ApiActions();
         private string _userName;
         private string _password;
         private bool _gotcookie;

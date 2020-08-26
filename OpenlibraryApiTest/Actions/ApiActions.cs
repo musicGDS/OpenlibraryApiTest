@@ -5,15 +5,16 @@ using System;
 
 namespace OpenlibraryApiTest.Handlers
 {
-    class ApiHandler
+    class ApiActions
     {
         string BaseUrl = ConfigurationReader.GetValue("url");
 
         readonly IRestClient _client;
 
-        public ApiHandler()
+        public ApiActions()
         {
             _client = new RestClient(BaseUrl);
+            _client.CookieContainer = new System.Net.CookieContainer();
         }
 
         //Connection Handler
@@ -31,12 +32,12 @@ namespace OpenlibraryApiTest.Handlers
         }
 
         //Get
-        public Book GetBook(string isbn)
+        public BookModel GetBook(string isbn)
         {
             var request = new RestRequest("api/books?bibkeys=ISBN:" + isbn + "&jscmd=data&format=json");
             request.AddParameter("isbn", isbn, ParameterType.UrlSegment);
             request.RootElement = "ISBN:" + isbn;
-            var response = Execute<Book>(request);
+            var response = Execute<BookModel>(request);
             return response;
         }
 
